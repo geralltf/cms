@@ -1,0 +1,1 @@
+C:\projects\CMS\cms.client\obj\Debug\cms.client.esproj.CoreCompileInputs.cache

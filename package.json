@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@progress/kendo-data-query": "^1.7.0",
+    "@progress/kendo-react-common": "^8.1.0",
+    "@progress/kendo-react-excel-export": "^8.1.0",
+    "@progress/kendo-react-grid": "^8.1.0",
+    "@progress/kendo-react-indicators": "^8.1.0",
+    "@progress/kendo-react-inputs": "^8.1.0",
+    "@progress/kendo-react-pdf": "^8.1.0",
+    "react-bootstrap-typeahead": "^6.3.2"
+  }
+}
