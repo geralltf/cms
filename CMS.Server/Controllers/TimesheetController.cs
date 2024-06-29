@@ -109,13 +109,12 @@ namespace CMS.Server.Controllers
         [HttpGet(Name = "GetTimesheet")]
         public IEnumerable<Timesheet> Get()
         {
-            List<Timesheet> result = new List<Timesheet>(); 
-            string queryString = "SELECT [ID], [TimesheetCategory], [TimesheetDescription], [TimesheetTimeSpanBegin], [TimesheetTimeSpanEnd], [TimesheetCompanyID], [IsDeleted] FROM [cms].[dbo].[Timesheets]";
-
+            List<Timesheet> result = new List<Timesheet>();
+            //string queryString = "SELECT [ID], [TimesheetCategory], [TimesheetDescription], [TimesheetTimeSpanBegin], [TimesheetTimeSpanEnd], [TimesheetCompanyID], [IsDeleted] FROM [cms].[dbo].[Timesheets]";
+            string queryString = "SELECT [dbo].[Companies].CompanyName as CompanyName, [dbo].[Timesheets].[ID] as ID, [dbo].[Timesheets].[TimesheetCategory] as TimesheetCategory, [dbo].[Timesheets].[TimesheetDescription] as TimesheetDescription, [dbo].[Timesheets].[TimesheetTimeSpanBegin] as TimesheetTimeSpanBegin, [dbo].[Timesheets].[TimesheetTimeSpanEnd] as TimesheetTimeSpanEnd, [dbo].[Timesheets].[TimesheetCompanyID] as TimesheetCompanyID, [dbo].[Timesheets].[IsDeleted] as IsDeleted FROM [dbo].[Timesheets] LEFT JOIN [dbo].[Companies] ON [Timesheets].[TimesheetCompanyID] = [dbo].[Companies].ID;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                //command.Parameters.AddWithValue("@tPatSName", "Your-Parm-Value");
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 try
@@ -142,6 +141,8 @@ namespace CMS.Server.Controllers
                         long.TryParse(reader["TimesheetCompanyID"].ToString(), out companyID);
                         timesheet.TimesheetCompanyID = companyID;
 
+                        timesheet.CompanyName = reader["CompanyName"].ToString();
+                        
                         long TimesheetCategoryID;
                         long.TryParse(reader["TimesheetCategory"].ToString(), out TimesheetCategoryID);
                         timesheet.TimesheetCategory = TimesheetCategoryID;

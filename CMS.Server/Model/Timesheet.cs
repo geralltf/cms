@@ -14,6 +14,8 @@ namespace CMS.Server
 
         public long TimesheetCompanyID { get; set; }
 
+        public string? CompanyName { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }

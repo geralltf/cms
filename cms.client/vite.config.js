@@ -57,6 +57,10 @@ export default defineConfig({
             '^/company': {
                 target: 'https://localhost:7062/',
                 secure: false
+            },
+            '^/page': {
+                target: 'https://localhost:7062/',
+                secure: false
             }
         },
         port: 5173,
