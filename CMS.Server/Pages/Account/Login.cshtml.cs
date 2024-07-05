@@ -91,8 +91,8 @@ namespace AuthorizationSample.Pages.Account
             {
                 return new ApplicationUser()
                 {
-                    Email = "maria.rodriguez@contoso.com",
-                    FullName = "Maria Rodriguez"
+                    Email = "geralltf@gmail.com",
+                    FullName = "Gerallt Franke"
                 };
             }
             else
