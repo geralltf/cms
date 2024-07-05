@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
@@ -7,6 +8,8 @@ namespace CMS.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize(Roles = "Administrators")]
+    [Authorize]
     public class TimesheetController : ControllerActionBase
     {
         private readonly ILogger<TimesheetController> _logger;
@@ -85,11 +88,12 @@ namespace CMS.Server.Controllers
         {
             int recordAffectedCount = -1;
 
-            string insertQuery = "DELETE FROM [dbo].[Timesheets] WHERE [ID] = @ID";
+            //string insertQuery = "DELETE FROM [dbo].[Timesheets] WHERE [ID] = @ID";
+            string updateQuery = "UPDATE [dbo].[Timesheets] SET IsDeleted = 1 WHERE [ID] = @ID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(insertQuery, connection);
+                SqlCommand command = new SqlCommand(updateQuery, connection);
                 command.Parameters.AddWithValue("@ID", timesheet.ID);
 
                 try

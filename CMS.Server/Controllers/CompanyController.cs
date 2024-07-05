@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
@@ -7,6 +8,8 @@ namespace CMS.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Authorize(Roles = "Administrators")]
+    [Authorize]
     public class CompanyController : ControllerActionBase
     {
         private readonly ILogger<CompanyController> _logger;

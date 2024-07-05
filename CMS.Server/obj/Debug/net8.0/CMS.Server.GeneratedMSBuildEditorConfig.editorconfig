@@ -17,3 +17,67 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\projects\CMS\CMS.Server
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/projects/CMS/CMS.Server/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Account/SignedOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxTaWduZWRPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/PrivatePage1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQcml2YXRlUGFnZTEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/PrivatePage2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQcml2YXRlUGFnZTIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/PublicPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQdWJsaWNQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/PublicPages/PublicPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQdWJsaWNQYWdlc1xQdWJsaWNQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/PublicPages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQdWJsaWNQYWdlc1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xvZ2luUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

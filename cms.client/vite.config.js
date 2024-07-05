@@ -46,10 +46,6 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
-                target: 'https://localhost:7062/',
-                secure: false
-            },
             '^/timesheet': {
                 target: 'https://localhost:7062/',
                 secure: false
@@ -59,6 +55,26 @@ export default defineConfig({
                 secure: false
             },
             '^/page': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/category': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/api/Authentication/authenticate': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Account/Login': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Account/Logout': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Account/SignedOut': {
                 target: 'https://localhost:7062/',
                 secure: false
             }

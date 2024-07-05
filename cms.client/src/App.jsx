@@ -1,16 +1,43 @@
+import "./App.css";
+import AuthProvider from "./AuthProvider.jsx";
+import ProtectedRoute from "../components/ProtectedRoute.jsx";
+import Login from "../components/Login.jsx";
+import View from "../components/View.jsx";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import './App.css';
+//function App() {
+//    return (
+//        <div className="App">
+//            <Router>
+//                <AuthProvider>
+//                    <Routes>
+//                        <Route path="/login" element={<Login />} />
+//                        <Route element={<ProtectedRoute />}>
+//                            <Route path="/view" element={<View />} />
+//                        </Route>
+//                    </Routes>
+//                </AuthProvider>
+//            </Router>
+//        </div>
+//    );
+//}
 
 function App() {
     const [timesheets, setTimesheets] = useState();
     const [companies, setCompanies] = useState();
     const [pages, setPages] = useState();
+    const [pageCategories, setPageCategories] = useState();
+    const [timesheetCategories, setTimesheetCategories] = useState();
 
     useEffect(() => {
+        populatePageCategories();
+        populateTimesheetCategories();
         populatePageData();
         populateCompaniesData();
         populateTimesheetData();
     }, []);
+
+    const contentsPageCategories = pageCategories === undefined ? <p>Loading page categories</p> : <p>Page Categories Loaded</p>;
 
     const contentsPages = pages === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
@@ -28,7 +55,7 @@ function App() {
                     <br /><br />
                     <label htmlFor="pageCategories">Choose a page category:</label>
                     <select name="pageCategories" id="pageCategories" required="required">
-                        {companies === undefined ? <option value="0">LOADING...</option> : companies.map(company => <option value={company.id} key={company.id}>{company.companyName}</option>
+                        {pageCategories === undefined ? <option value="0">LOADING...</option> : pageCategories.map(category => <option value={category.id} key={category.id}>{category.categoryID}-{category.categoryName}-{category.categoryDescription}</option>
                         )}
                     </select>
                     <br /><br />
@@ -73,7 +100,9 @@ function App() {
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (data) {
+                                populatePageCategories();
                                 populatePageData();
+                                
                                 alert(data);
 
                             },
@@ -134,13 +163,20 @@ function App() {
                         )}
                     </select>
                     <br /><br />
+                    <label htmlFor="timesheetCategories">Choose a timesheet category:</label>
+                    <select name="timesheetCategories" id="timesheetCategories" required="required">
+                        {timesheetCategories === undefined ? <option value="0">LOADING...</option> : timesheetCategories.map(category => <option value={category.id} key={category.id}>{category.categoryID}-{category.categoryName}-{category.categoryDescription}</option>
+                        )}
+                    </select>
+                    <br /><br />
                     <button type="button" id="submitTimesheet" onClick={function (e) {
                         console.log("submitting...");
                         var desc = $("#timesheetDescription").val();
-                        var selectedCompany = $("#companies").find(":selected").val();;
+                        var selectedCompany = $("#companies").find(":selected").val();
+                        var selectedCategory = $("#timesheetCategories").find(":selected").val();
                         var timesheet = {
                             "id": 0,
-                            "timesheetCategory": 0,
+                            "timesheetCategory": selectedCategory,
                             "timesheetDescription": desc,
                             "timesheetTimeSpanBegin": "2024-06-28T07:51:12.754Z",
                             "timesheetTimeSpanEnd": "2024-06-28T07:51:12.754Z",
@@ -198,6 +234,19 @@ function App() {
             <div>
                 <button id="btnPagesView">Pages</button>
                 <button id="btnTimesheetsView">Timesheets</button>
+                <button id="btnPayrollView">Payroll</button>
+                <button id="btnSignout" onClick={function (e) {
+                    console.log("Account Signout...");
+
+                    window.location.replace("./Account/Signout");
+
+                }}>Sign Out</button>
+                <button id="btnLogin" onClick={function (e) {
+                    console.log("Account Login...");
+
+                    window.location.replace("./Account/Login");
+
+                }}>Login</button>
             </div>
             <div>
                 <h1 id="tabelLabel">Timesheet Recorder</h1>
@@ -228,6 +277,17 @@ function App() {
         const response = await fetch('page');
         const data = await response.json();
         setPages(data);
+    }
+
+    async function populatePageCategories() {
+        const response = await fetch('category');
+        const data = await response.json();
+        setPageCategories(data);
+    }
+    async function populateTimesheetCategories() {
+        const response = await fetch('category');
+        const data = await response.json();
+        setTimesheetCategories(data);
     }
 }
 
