@@ -62,7 +62,8 @@ namespace AuthorizationSample.Pages.Account
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Email),
-                    new Claim("FullName", user.FullName)
+                    new Claim("FullName", user.FullName),
+                    Input.Password == "test" ? new Claim(ClaimTypes.Role, "Administrators") : new Claim(ClaimTypes.Role, "BasicUser")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -87,7 +88,7 @@ namespace AuthorizationSample.Pages.Account
 
             await Task.Delay(500);
 
-            if (string.Equals(email, "geralltf@gmail.com", StringComparison.OrdinalIgnoreCase) && password == "test")
+            if (string.Equals(email, "geralltf@gmail.com", StringComparison.OrdinalIgnoreCase) && (password == "test" || password == "testuser")) 
             {
                 return new ApplicationUser()
                 {

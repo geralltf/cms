@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using CMS.Server.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,13 @@ namespace AuthorizationSample
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
+
+            services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrators", policy => policy.RequireRole("Administrators"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

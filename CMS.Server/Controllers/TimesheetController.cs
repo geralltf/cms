@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
-using System.Text.Json.Serialization; // installed through nuget. Found by searching "System.Data.SqlClient" in nuget package manager.
+using System.Data.SqlClient; // installed through nuget. Found by searching "System.Data.SqlClient" in nuget package manager.
+using System.Text.Json.Serialization; 
 
 namespace CMS.Server.Controllers
 {
