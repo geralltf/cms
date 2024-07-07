@@ -22,6 +22,8 @@ namespace CMS.Server.Controllers
         [HttpPost(Name = "PostEmployee")]
         public bool Post(Employee employee)
         {
+            DateTime dateTimeDOB = new DateTime(employee.DOB.Year, employee.DOB.Month, employee.DOB.Day);
+
             int recordAffectedCount = -1;
 
             string insertQuery = "INSERT INTO [dbo].[Employees] ([EmployeeFirstName],[EmployeeMidleName],[EmployeeLastName],[StreetAddress],[Suburb],[City],[State],[Country],[Postcode],[Email],[DOB],[Gender],[TFN],[ABN]) "
@@ -40,7 +42,7 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@Country", employee.Country);
                 command.Parameters.AddWithValue("@Postcode", employee.Postcode);
                 command.Parameters.AddWithValue("@Email", employee.Email);
-                command.Parameters.AddWithValue("@DOB", employee.DOB);
+                command.Parameters.AddWithValue("@DOB", dateTimeDOB);
                 command.Parameters.AddWithValue("@Gender", employee.Gender);
                 command.Parameters.AddWithValue("@TFN", employee.TFN);
                 command.Parameters.AddWithValue("@ABN", employee.ABN);
