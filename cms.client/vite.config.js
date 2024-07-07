@@ -62,6 +62,10 @@ export default defineConfig({
                 target: 'https://localhost:7062/',
                 secure: false
             },
+            '^/employee': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
             '^/api/Authentication/authenticate': {
                 target: 'https://localhost:7062/',
                 secure: false

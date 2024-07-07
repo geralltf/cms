@@ -237,14 +237,14 @@ function App() {
                 <button id="btnPayrollView">Payroll</button>
                 <button id="btnSignout" onClick={function (e) {
                     console.log("Account Signout...");
-
-                    window.location.replace("./Account/Signout");
+                    
+                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Signout");
 
                 }}>Sign Out</button>
                 <button id="btnLogin" onClick={function (e) {
                     console.log("Account Login...");
 
-                    window.location.replace("./Account/Login");
+                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Login");
 
                 }}>Login</button>
             </div>
