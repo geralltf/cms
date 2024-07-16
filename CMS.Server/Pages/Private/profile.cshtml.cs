@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AuthorizationSample.Pages.Private
 {
-    public class PrivatePage1Model : PageModel
+    public class ProfileModel : PageModel
     {
         public string Message { get; private set; }
 

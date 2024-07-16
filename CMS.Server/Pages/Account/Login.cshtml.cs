@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNet.Identity;
+//using Microsoft.AspNet.Identity;
 
 namespace AuthorizationSample.Pages.Account
 {
@@ -78,8 +78,7 @@ namespace AuthorizationSample.Pages.Account
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.Email),
-                        new Claim("FullName", user.FullName),
-                        //Input.Password == "test" ? new Claim(ClaimTypes.Role, "Administrators") : new Claim(ClaimTypes.Role, "BasicUser")
+                        new Claim("FullName", user.FullName)
                     };
 
                     IEnumerable<string> userRoles = GetRolesByUserEmail(user.Email);
@@ -112,8 +111,7 @@ namespace AuthorizationSample.Pages.Account
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.Email),
-                        new Claim("FullName", user.FullName),
-                        //Input.Password == "test" ? new Claim(ClaimTypes.Role, "Administrators") : new Claim(ClaimTypes.Role, "BasicUser")
+                        new Claim("FullName", user.FullName)
                     };
 
                     IEnumerable<string> userRoles = GetRolesByUserEmail(user.Email);

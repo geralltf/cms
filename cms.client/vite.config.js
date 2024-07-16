@@ -81,6 +81,26 @@ export default defineConfig({
             '^/Account/SignedOut': {
                 target: 'https://localhost:7062/',
                 secure: false
+            },
+            '^/Private/Pages': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Private/Timesheets': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Private/Employees': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Private/Payroll': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Account/profile': {
+                target: 'https://localhost:7062/',
+                secure: false
             }
         },
         port: 5173,

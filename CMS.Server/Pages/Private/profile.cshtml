@@ -1,0 +1,27 @@
+﻿@page
+@namespace AuthorizationSample.Pages.Private
+@model ProfileModel
+@{
+    ViewData["Title"] = "Private Folder: Private Page 1";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>@Model.Message</h2>
+
+<p>
+    <h1>User Profile</h1>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div>Hello @User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value!</div>
+            <p>Username: @User.Identity.Name</p>
+            <a href="Private/profile">View Profile</a>
+        </div>
+    }
+
+    This page requires authorization by convention:
+    <code>
+        options.Conventions.AuthorizeFolder("/Private");
+    </code>
+</p>

@@ -1,16 +1,20 @@
 ﻿@page
 @namespace AuthorizationSample.Pages.Private
-@model PrivatePage1Model
+@model PagesModel
 @{
-    ViewData["Title"] = "Private Folder: Private Page 1";
+    ViewData["Title"] = "Private Folder: Private Page 1 Pages View";
 }
 
 <h1>@ViewData["Title"]</h1>
 <h2>@Model.Message</h2>
 
 <p>
+    Timesheets
     This page requires authorization by convention:
     <code>
         options.Conventions.AuthorizeFolder("/Private");
     </code>
+
+    <div id="root"></div>
+    <script type="module" src="./src/main.jsx"></script>
 </p>

@@ -40,14 +40,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.AspNet.Identity.Core": {
-              "target": "Package",
-              "version": "[2.2.4, )"
-            },
-            "Microsoft.AspNet.Identity.Owin": {
-              "target": "Package",
-              "version": "[2.2.4, )"
-            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.6, )"
@@ -68,22 +60,6 @@
               "target": "Package",
               "version": "[7.6.2, )"
             },
-            "Microsoft.Owin.Security.Cookies": {
-              "target": "Package",
-              "version": "[4.2.2, )"
-            },
-            "Microsoft.Owin.Security.Facebook": {
-              "target": "Package",
-              "version": "[4.2.2, )"
-            },
-            "Microsoft.Owin.Security.Google": {
-              "target": "Package",
-              "version": "[4.2.2, )"
-            },
-            "Microsoft.Owin.Security.OAuth": {
-              "target": "Package",
-              "version": "[4.2.2, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -99,10 +75,6 @@
             "System.Net.Http": {
               "target": "Package",
               "version": "[4.3.4, )"
-            },
-            "System.Web.Http.Common": {
-              "target": "Package",
-              "version": "[4.0.20126.16343, )"
             }
           },
           "imports": [

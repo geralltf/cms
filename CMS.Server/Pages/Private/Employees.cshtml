@@ -1,6 +1,6 @@
 ﻿@page
 @namespace AuthorizationSample.Pages.Private
-@model PrivatePage2Model
+@model EmployeesModel
 @{
     ViewData["Title"] = "Private Folder: Private Page 2";
 }
@@ -9,6 +9,7 @@
 <h2>@Model.Message</h2>
 
 <p>
+    Employees
     This page requires authorization by convention:
     <code>
         options.Conventions.AuthorizeFolder("/Private");

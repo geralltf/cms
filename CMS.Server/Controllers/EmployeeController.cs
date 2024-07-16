@@ -9,7 +9,7 @@ namespace CMS.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Administrators,Finance")]
     public class EmployeeController : ControllerActionBase
     {
         private readonly ILogger<EmployeeController> _logger;

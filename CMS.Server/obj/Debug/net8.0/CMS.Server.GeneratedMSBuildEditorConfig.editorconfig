@@ -42,12 +42,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/projects/CMS/CMS.Server/Pages/Private/PrivatePage1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQcml2YXRlUGFnZTEuY3NodG1s
+[C:/projects/CMS/CMS.Server/Pages/Private/Employees.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxFbXBsb3llZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/projects/CMS/CMS.Server/Pages/Private/PrivatePage2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQcml2YXRlUGFnZTIuY3NodG1s
+[C:/projects/CMS/CMS.Server/Pages/Private/Pages.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQYWdlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/Payroll.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQYXlyb2xsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxwcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/projects/CMS/CMS.Server/Pages/Private/PublicPage.cshtml]
@@ -60,6 +68,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/projects/CMS/CMS.Server/Pages/Private/PublicPages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxQdWJsaWNQYWdlc1xfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/CMS/CMS.Server/Pages/Private/Timesheets.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZVxUaW1lc2hlZXRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/projects/CMS/CMS.Server/Pages/Private/_ViewImports.cshtml]
