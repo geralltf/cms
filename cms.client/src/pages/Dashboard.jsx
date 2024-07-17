@@ -1,6 +1,43 @@
 import { Outlet, Link, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from 'react';
+
+
+export function IsLoggedIn() {
+
+    const [isloggedin, setIsLoggedIn] = useState();
+
+    async function populateIsLoggedIn() {
+        const response = await fetch('https://' + location.hostname + ':' + location.port + '/Account/IsLoggedIn');
+        const data = await response.json();
+        setIsLoggedIn(data);
+    }
+
+    useEffect(() => {
+        populateIsLoggedIn();
+    }, []);
+
+    const contents = isloggedin === undefined ? <p>Wait...</p> : <div>
+        <button id="btnSignout" class={isloggedin.isloggedin ? "logged-in-signout" : "logged-out-signout"} onClick={function (e) {
+        console.log("Account Signout...");
+
+            window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Logoff/GetLogoff");
+
+        }}>Signout {isloggedin.user}</button><button id="btnLogin" class={isloggedin.isloggedin?"logged-in-login":"logged-out-login"} onClick={function (e) {
+        console.log("Account Login...");
+
+        window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Login");
+
+    }}>Login</button></div>;
+
+    return (
+        <div>
+            {contents}
+        </div>
+    );
+}
 
 export function DashboardLayout() {
+
     return (
         <div>
             <nav>
@@ -10,6 +47,9 @@ export function DashboardLayout() {
                     </li>
                     <li>
                         <Link to="/dashboard/messages">Messages</Link>
+                    </li>
+                    <li>
+                        <IsLoggedIn />
                     </li>
                 </ul>
             </nav>

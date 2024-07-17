@@ -66,3 +66,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.logged-in-login {
+    display: none;
+}
+
+.logged-out-login {
+    display: inline-block;
+}
+
+.logged-out-signout {
+    display: none;
+}
+
+.logged-in-signout {
+    display: inline-block;
+}

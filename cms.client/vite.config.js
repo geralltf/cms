@@ -82,6 +82,10 @@ export default defineConfig({
                 target: 'https://localhost:7062/',
                 secure: false
             },
+            '^/Account/Signout': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
             '^/Private/Pages': {
                 target: 'https://localhost:7062/',
                 secure: false
@@ -101,7 +105,15 @@ export default defineConfig({
             '^/Account/profile': {
                 target: 'https://localhost:7062/',
                 secure: false
-            }
+            },
+            '^/Account/IsLoggedIn': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
+            '^/Account/Logoff/GetLogoff': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
         },
         port: 5173,
         https: {

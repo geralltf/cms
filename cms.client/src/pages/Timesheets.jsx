@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import "./../App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { IsLoggedIn } from "./Dashboard.jsx";
 
 export async function loader() {
     await new Promise((r) => setTimeout(r, 500));
@@ -130,36 +131,7 @@ export function Component() {
     return (
         <div>
             <div>
-                <button id="btnPagesView" onClick={function (e) {
-                    console.log("Pages View...");
-
-                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Private/Pages");
-
-                }}>Pages</button>
-                <button id="btnTimesheetsView" onClick={function (e) {
-                    console.log("Timesheets View...");
-
-                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Private/Timesheets");
-
-                }}>Timesheets</button>
-                <button id="btnPayrollView" onClick={function (e) {
-                    console.log("Payroll View...");
-
-                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Private/Payroll");
-
-                }}>Payroll</button>
-                <button id="btnSignout" onClick={function (e) {
-                    console.log("Account Signout...");
-
-                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Signout");
-
-                }}>Sign Out</button>
-                <button id="btnLogin" onClick={function (e) {
-                    console.log("Account Login...");
-
-                    window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Login");
-
-                }}>Login</button>
+                <IsLoggedIn></IsLoggedIn>
             </div>
             <div>
                 <h1 id="tabelLabel">Timesheet Recorder</h1>
