@@ -1,0 +1,62 @@
+﻿body {
+}
+
+/* Full-width inputs */
+.login-textbox > input[type=text], .login-textbox > input[type=password], .login-textbox > input[type=email] {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.login-textbox > label {
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}
+
+.login-buttons > button[type=submit] {
+    display: inline;
+    width: 140px;
+    text-align: center;
+    vertical-align: baseline;
+    margin-left: 29%;
+}
+
+button {
+    background-color: #f9f9f9;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    transition: border-color 0.25s;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: #f9f9f9;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    transition: border-color 0.25s;
+    border: 1px solid blue;
+    border-radius: 8px;
+}
+
+
+/*@keyframes smoothbounceball {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 200px, 0);
+    }
+}
+
+.login-buttons {
+    animation: bounce 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+*/

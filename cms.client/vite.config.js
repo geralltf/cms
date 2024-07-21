@@ -66,6 +66,10 @@ export default defineConfig({
                 target: 'https://localhost:7062/',
                 secure: false
             },
+            '^/payrollEntry': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
             '^/api/Authentication/authenticate': {
                 target: 'https://localhost:7062/',
                 secure: false

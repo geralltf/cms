@@ -13,6 +13,7 @@ export function Component() {
     let data = useLoaderData();
 
     const [employees, setEmployees] = useState();
+    const [payrollEntries, SetPayrollEntries] = useState();
 
     async function populateEmployees() {
         const response = await fetch('employee');
@@ -20,9 +21,116 @@ export function Component() {
         setEmployees(data);
     }
 
+    async function populatePayrollEntries() {
+        const response = await fetch('payrollEntry');
+        const data = await response.json();
+        SetPayrollEntries(data);
+    }
+
     useEffect(() => {
         populateEmployees();
+        populatePayrollEntries();
     }, []);
+
+    const contentsPayrollEntries = payrollEntries === undefined
+        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+        : <div>
+            <div>
+                <form action="/payrollEntry" method="POST">
+                    <label htmlFor="usualWorkingHoursPerDay">Usual Working Hours Per Day:</label>
+                    <input type="text" id="usualWorkingHoursPerDay" name="usualWorkingHoursPerDay" />
+                    <br /><br />
+                    <label htmlFor="overTimePerHour">Over Time Per Hour:</label>
+                    <input type="text" id="overTimePerHour" name="overTimePerHour" />
+                    <br /><br />
+                    <label htmlFor="basicSalaryPerHour">Basic Salary Per Hour:</label>
+                    <input type="text" id="basicSalaryPerHour" name="basicSalaryPerHour" />
+                    <br /><br />
+                    <button type="button" id="submitEmployee" onClick={function (e) {
+                        console.log("submitting...");
+                        var usualWorkingHoursPerDay = $("#usualWorkingHoursPerDay").val();
+                        var overTimePerHour = $("#overTimePerHour").val();
+                        var basicSalaryPerHour = $("#basicSalaryPerHour").val();
+
+                        var payrollEntry =
+                        {
+                            "employeeID": 0,
+                            "employmentStartDate": "2024-07-21T06:20:02.307Z",
+                            "employmentClassification": 0,
+                            "usualWorkingHoursPerDay": usualWorkingHoursPerDay,
+                            "jobStatus": 0,
+                            "reference": "string",
+                            "leaveEntitlements": 0,
+                            "wageSupplements": 0,
+                            "basicSalaryPerHour": basicSalaryPerHour,
+                            "overTimePerHour": overTimePerHour,
+                            "grossPay": 0,
+                            "netPay": 0,
+                            "tax": 0,
+                            "pensionAndSuperannuation": 0,
+                            "studentLoan": 0,
+                            "insurancePay": 0,
+                            "deductions": 0,
+                            "grade": 0,
+                            "department": 0,
+                            "payDate": "2024-07-21T06:20:02.307Z",
+                            "taxPeroid": "string",
+                            "insuranceNumber": "string",
+                            "superannuationRate": 0,
+                            "taxiblePay": 0,
+                            "medicareDeduction": 0,
+                            "otherDeductions": 0,
+                            "payGWitholdingNumber": "string",
+                            "employerCompany": 0
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/payrollEntry",
+                            data: JSON.stringify(payrollEntry),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (data) {
+                                populatePayrollEntries();
+
+                                alert(data);
+
+                            },
+                            error: function (errMsg) {
+                                alert(errMsg);
+                            }
+                        });
+
+                    }}>Submit</button>
+                </form>
+            </div>
+            <table className="table table-striped" aria-labelledby="tabelLabel2">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee ID</th>
+                        <th>Reference</th>
+                        <th>Usual Working Hours Per Day</th>
+                        <th>Basic Salary Per Hour</th>
+                        <th>Over Time Per Hour</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {payrollEntries.map(p =>
+                        <tr key={p.id}>
+                            <td>{p.id}</td>
+                            <td>{p.employeeID}</td>
+                            <td>{p.reference}</td>
+                            <td>{p.usualWorkingHoursPerDay}</td>
+                            <td>{p.basicSalaryPerHour}</td>
+                            <td>{p.overTimePerHour}</td>
+                            <td>{p.isDeleted ? "Deleted" : "Available"}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>;
 
     const contentsEmployees = employees === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
@@ -118,6 +226,11 @@ export function Component() {
                 <h1 id="tabelLabel">Employees</h1>
                 <p>This employees section manages employees for payroll.</p>
                 {contentsEmployees}
+            </div>
+            <div>
+                <h1 id="tabelLabel2">Payroll Entries</h1>
+                <p>This section manages entries for payroll.</p>
+                {contentsPayrollEntries}
             </div>
         </div>
     );

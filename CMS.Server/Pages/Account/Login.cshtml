@@ -12,17 +12,17 @@
         <h2>Use a local account to log in.</h2>
         <hr>
         <div asp-validation-summary="All"></div>
-        <div>
+        <div class="login-textbox">
             <label asp-for="Input.Email"></label>
             <input asp-for="Input.Email">
             <span asp-validation-for="Input.Email"></span>
         </div>
-        <div>
+        <div class="login-textbox">
             <label asp-for="Input.Password"></label>
             <input asp-for="Input.Password">
             <span asp-validation-for="Input.Password"></span>
         </div>
-        <div>
+        <div class="login-buttons">
             <button type="submit" name="login">Log in</button>
         </div>
     </form>
@@ -33,22 +33,22 @@
         <h2>Create an account to register with us.</h2>
         <hr>
         <div asp-validation-summary="All"></div>
-        <div>
+        <div class="login-textbox">
             <label asp-for="Input.Email"></label>
             <input asp-for="Input.Email">
             <span asp-validation-for="Input.Email"></span>
         </div>
-        <div>
+        <div class="login-textbox">
             <label asp-for="Input.Password"></label>
             <input asp-for="Input.Password">
             <span asp-validation-for="Input.Password"></span>
         </div>
-        <div>
+        <div class="login-textbox">
             <label asp-for="Input.ConfirmedPassword"></label>
             <input asp-for="Input.ConfirmedPassword">
             <span asp-validation-for="Input.Password"></span>
         </div>
-        <div>
+        <div class="login-buttons">
             <button type="submit" name="register">Register</button>
         </div>
     </form>

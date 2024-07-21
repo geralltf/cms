@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\projects\\CMS\\CMS.Server\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CMS.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CMS.Server.props",
+      "PackagePath": "build\\CMS.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CMS.Server.props",
+      "PackagePath": "buildMultiTargeting\\CMS.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CMS.Server.props",
+      "PackagePath": "buildTransitive\\CMS.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

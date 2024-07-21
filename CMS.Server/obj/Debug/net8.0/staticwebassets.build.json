@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CLWGvR0XNUyH5yOfo5Quh7XqzzqTowjNu6qJEWwb9xM=",
+  "Hash": "q3DrnDXMlIxWbH+5Cj/T6drfjP+P8w6Fk+1NFNEFdtU=",
   "Source": "CMS.Server",
   "BasePath": "_content/CMS.Server",
   "Mode": "Default",
@@ -18,6 +18,34 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
     }
   ],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "CMS.Server\\wwwroot",
+      "Source": "CMS.Server",
+      "ContentRoot": "C:\\projects\\CMS\\CMS.Server\\wwwroot\\",
+      "BasePath": "_content/CMS.Server",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\projects\\CMS\\CMS.Server\\wwwroot\\css\\index.css",
+      "SourceId": "CMS.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\projects\\CMS\\CMS.Server\\wwwroot\\",
+      "BasePath": "_content/CMS.Server",
+      "RelativePath": "css/index.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\index.css"
+    }
+  ]
 }

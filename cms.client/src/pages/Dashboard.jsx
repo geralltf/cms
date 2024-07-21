@@ -17,12 +17,12 @@ export function IsLoggedIn() {
     }, []);
 
     const contents = isloggedin === undefined ? <p>Wait...</p> : <div>
-        <button id="btnSignout" class={isloggedin.isloggedin ? "logged-in-signout" : "logged-out-signout"} onClick={function (e) {
+        <button id="btnSignout" className={isloggedin.isloggedin ? "logged-in-signout" : "logged-out-signout"} onClick={function (e) {
         console.log("Account Signout...");
 
             window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Logoff/GetLogoff");
 
-        }}>Signout {isloggedin.user}</button><button id="btnLogin" class={isloggedin.isloggedin?"logged-in-login":"logged-out-login"} onClick={function (e) {
+        }}>Signout {isloggedin.user}</button><button id="btnLogin" className={isloggedin.isloggedin?"logged-in-login":"logged-out-login"} onClick={function (e) {
         console.log("Account Login...");
 
         window.location.replace('https://' + location.hostname + ":" + location.port + "/Account/Login");

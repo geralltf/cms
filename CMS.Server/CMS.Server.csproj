@@ -30,4 +30,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\index.css" />
+  </ItemGroup>
+
 </Project>
