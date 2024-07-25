@@ -3,6 +3,208 @@ import "./../App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { IsLoggedIn } from "./Dashboard.jsx";
+import { GridViewComponent } from './../components/GridView.jsx';
+
+export function GridViewDataViewEmployees({ dataSource }) {
+    var [data, setData] = useState();
+    var [dataModel, setDataModel] = useState();
+
+    var model = {
+        fields: [
+            {
+                "fieldName": "ID",
+                "field": "id",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "First Name",
+                "field": "firstName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Middle Name",
+                "field": "middleName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Last Name",
+                "field": "lastName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Street Address",
+                "field": "streetAddress",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Availability",
+                "field": "isDeleted",
+                "type": "boolean",
+                defaultValue: function () {
+                    return false;
+                }
+            }
+        ],
+        controllers: {
+            create: {
+                url: './employee',
+                actionType: 'POST'
+            },
+            read: {
+                url: './employee',
+                actionType: 'GET'
+            },
+            update: {
+                url: './employee',
+                actionType: 'PUT'
+            },
+            delete: {
+                url: './employee',
+                actionType: 'DELETE'
+            }
+        }
+    };
+
+    var config = {
+        pages: 20,
+        currentPage: 1
+    };
+    return (
+        <GridViewComponent dataSource={dataSource} model={model} config={config}>
+        </GridViewComponent>
+    );
+}
+export function GridViewDataViewPayroll({ dataSource }) {
+    var [data, setData] = useState();
+    var [dataModel, setDataModel] = useState();
+
+    var model = {
+        fields: [
+            {
+                "fieldName": "ID",
+                "field": "id",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Employee ID",
+                "field": "employeeID",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Reference",
+                "field": "reference",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Usual Working Hours Per Day",
+                "field": "usualWorkingHoursPerDay",
+                "type": "number",
+                defaultValue: function () {
+                    return 7.5;
+                }
+            },
+            {
+                "fieldName": "Basic Salary Per Hour",
+                "field": "basicSalaryPerHour",
+                "type": "number",
+                defaultValue: function () {
+                    return 0.0;
+                }
+            },
+            {
+                "fieldName": "Over Time Per Hour",
+                "field": "overTimePerHour",
+                "type": "number",
+                defaultValue: function () {
+                    return 0.0;
+                }
+            },
+            {
+                "fieldName": "Tax Peroid",
+                "field": "taxPeroid",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Insurance Number",
+                "field": "insuranceNumber",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "PayG Witholding Number",
+                "field": "payGWitholdingNumber",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Availability",
+                "field": "isDeleted",
+                "type": "boolean",
+                defaultValue: function () {
+                    return false;
+                }
+            }
+        ],
+        controllers: {
+            create: {
+                url: './payrollEntry',
+                actionType: 'POST'
+            },
+            read: {
+                url: './payrollEntry',
+                actionType: 'GET'
+            },
+            update: {
+                url: './payrollEntry',
+                actionType: 'PUT'
+            },
+            delete: {
+                url: './payrollEntry',
+                actionType: 'DELETE'
+            }
+        }
+    };
+
+    var config = {
+        pages: 20,
+        currentPage: 1
+    };
+    return (
+        <GridViewComponent dataSource={dataSource} model={model} config={config}>
+        </GridViewComponent>
+    );
+}
 
 export async function loader() {
     await new Promise((r) => setTimeout(r, 500));
@@ -13,7 +215,7 @@ export function Component() {
     let data = useLoaderData();
 
     const [employees, setEmployees] = useState();
-    const [payrollEntries, SetPayrollEntries] = useState();
+    const [payrollEntries, setPayrollEntries] = useState();
 
     async function populateEmployees() {
         const response = await fetch('employee');
@@ -24,198 +226,13 @@ export function Component() {
     async function populatePayrollEntries() {
         const response = await fetch('payrollEntry');
         const data = await response.json();
-        SetPayrollEntries(data);
+        setPayrollEntries(data);
     }
 
     useEffect(() => {
         populateEmployees();
         populatePayrollEntries();
     }, []);
-
-    const contentsPayrollEntries = payrollEntries === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <div>
-            <div>
-                <form action="/payrollEntry" method="POST">
-                    <label htmlFor="usualWorkingHoursPerDay">Usual Working Hours Per Day:</label>
-                    <input type="text" id="usualWorkingHoursPerDay" name="usualWorkingHoursPerDay" />
-                    <br /><br />
-                    <label htmlFor="overTimePerHour">Over Time Per Hour:</label>
-                    <input type="text" id="overTimePerHour" name="overTimePerHour" />
-                    <br /><br />
-                    <label htmlFor="basicSalaryPerHour">Basic Salary Per Hour:</label>
-                    <input type="text" id="basicSalaryPerHour" name="basicSalaryPerHour" />
-                    <br /><br />
-                    <button type="button" id="submitEmployee" onClick={function (e) {
-                        console.log("submitting...");
-                        var usualWorkingHoursPerDay = $("#usualWorkingHoursPerDay").val();
-                        var overTimePerHour = $("#overTimePerHour").val();
-                        var basicSalaryPerHour = $("#basicSalaryPerHour").val();
-
-                        var payrollEntry =
-                        {
-                            "employeeID": 0,
-                            "employmentStartDate": "2024-07-21T06:20:02.307Z",
-                            "employmentClassification": 0,
-                            "usualWorkingHoursPerDay": usualWorkingHoursPerDay,
-                            "jobStatus": 0,
-                            "reference": "string",
-                            "leaveEntitlements": 0,
-                            "wageSupplements": 0,
-                            "basicSalaryPerHour": basicSalaryPerHour,
-                            "overTimePerHour": overTimePerHour,
-                            "grossPay": 0,
-                            "netPay": 0,
-                            "tax": 0,
-                            "pensionAndSuperannuation": 0,
-                            "studentLoan": 0,
-                            "insurancePay": 0,
-                            "deductions": 0,
-                            "grade": 0,
-                            "department": 0,
-                            "payDate": "2024-07-21T06:20:02.307Z",
-                            "taxPeroid": "string",
-                            "insuranceNumber": "string",
-                            "superannuationRate": 0,
-                            "taxiblePay": 0,
-                            "medicareDeduction": 0,
-                            "otherDeductions": 0,
-                            "payGWitholdingNumber": "string",
-                            "employerCompany": 0
-                        };
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/payrollEntry",
-                            data: JSON.stringify(payrollEntry),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                populatePayrollEntries();
-
-                                alert(data);
-
-                            },
-                            error: function (errMsg) {
-                                alert(errMsg);
-                            }
-                        });
-
-                    }}>Submit</button>
-                </form>
-            </div>
-            <table className="table table-striped" aria-labelledby="tabelLabel2">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Employee ID</th>
-                        <th>Reference</th>
-                        <th>Usual Working Hours Per Day</th>
-                        <th>Basic Salary Per Hour</th>
-                        <th>Over Time Per Hour</th>
-                        <th>Availability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {payrollEntries.map(p =>
-                        <tr key={p.id}>
-                            <td>{p.id}</td>
-                            <td>{p.employeeID}</td>
-                            <td>{p.reference}</td>
-                            <td>{p.usualWorkingHoursPerDay}</td>
-                            <td>{p.basicSalaryPerHour}</td>
-                            <td>{p.overTimePerHour}</td>
-                            <td>{p.isDeleted ? "Deleted" : "Available"}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>;
-
-    const contentsEmployees = employees === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <div>
-            <div>
-                <form action="/employee" method="POST">
-                    <label htmlFor="pageName">Employee First Name:</label>
-                    <input type="text" id="employeeFirstName" name="employeeFirstName" />
-                    <br /><br />
-                    <label htmlFor="employeeMiddleName">Employee Middle Name:</label>
-                    <input type="text" id="employeeMiddleName" name="employeeMiddleName" />
-                    <br /><br />
-                    <label htmlFor="employeeLastName">Employee Last Name:</label>
-                    <input type="text" id="employeeLastName" name="employeeLastName" />
-                    <br /><br />
-                    <button type="button" id="submitEmployee" onClick={function (e) {
-                        console.log("submitting...");
-                        var employeeFirstName = $("#employeeFirstName").val();
-                        var employeeMiddleName = $("#employeeMiddleName").val();
-                        var employeeLastName = $("#employeeLastName").val();
-
-                        var employee =
-                        {
-                            "id": 0,
-                            "firstName": employeeFirstName,
-                            "middleName": employeeMiddleName,
-                            "lastName": employeeLastName,
-                            "streetAddress": "",
-                            "suburb": "",
-                            "city": "",
-                            "state": "",
-                            "country": "",
-                            "postcode": "",
-                            "email": "",
-                            "dob": '1992-10-01',
-                            "gender": "",
-                            "tfn": "",
-                            "abn": ""
-                        };
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/employee",
-                            data: JSON.stringify(employee),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                populateEmployees();
-
-                                alert(data);
-
-                            },
-                            error: function (errMsg) {
-                                alert(errMsg);
-                            }
-                        });
-
-                    }}>Submit</button>
-                </form>
-            </div>
-            <table className="table table-striped" aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Street Address</th>
-                        <th>Availability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {employees.map(employee =>
-                        <tr key={employee.id}>
-                            <td>{employee.id}</td>
-                            <td>{employee.firstName}</td>
-                            <td>{employee.middleName}</td>
-                            <td>{employee.lastName}</td>
-                            <td>{employee.streetAddress}</td>
-                            <td>{employee.isDeleted ? "Deleted" : "Available"}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>;
 
     return (
         <div>
@@ -225,12 +242,12 @@ export function Component() {
             <div>
                 <h1 id="tabelLabel">Employees</h1>
                 <p>This employees section manages employees for payroll.</p>
-                {contentsEmployees}
+                <GridViewDataViewEmployees dataSource={employees}></GridViewDataViewEmployees>
             </div>
             <div>
                 <h1 id="tabelLabel2">Payroll Entries</h1>
                 <p>This section manages entries for payroll.</p>
-                {contentsPayrollEntries}
+                <GridViewDataViewPayroll dataSource={payrollEntries}></GridViewDataViewPayroll>
             </div>
         </div>
     );

@@ -115,7 +115,7 @@ namespace CMS.Server.Controllers
         {
             List<Timesheet> result = new List<Timesheet>();
             //string queryString = "SELECT [ID], [TimesheetCategory], [TimesheetDescription], [TimesheetTimeSpanBegin], [TimesheetTimeSpanEnd], [TimesheetCompanyID], [IsDeleted] FROM [cms].[dbo].[Timesheets]";
-            string queryString = "SELECT [dbo].[Companies].CompanyName as CompanyName, [dbo].[Timesheets].[ID] as ID, [dbo].[Timesheets].[TimesheetCategory] as TimesheetCategory, [dbo].[Timesheets].[TimesheetDescription] as TimesheetDescription, [dbo].[Timesheets].[TimesheetTimeSpanBegin] as TimesheetTimeSpanBegin, [dbo].[Timesheets].[TimesheetTimeSpanEnd] as TimesheetTimeSpanEnd, [dbo].[Timesheets].[TimesheetCompanyID] as TimesheetCompanyID, [dbo].[Timesheets].[IsDeleted] as IsDeleted FROM [dbo].[Timesheets] LEFT JOIN [dbo].[Companies] ON [Timesheets].[TimesheetCompanyID] = [dbo].[Companies].ID;";
+            string queryString = "SELECT [dbo].[Companies].CompanyName as CompanyName, [dbo].[Timesheets].[ID] as ID, [dbo].[Timesheets].[TimesheetCategory] as TimesheetCategory, [dbo].[Timesheets].[TimesheetDescription] as TimesheetDescription, [dbo].[Timesheets].[TimesheetTimeSpanBegin] as TimesheetTimeSpanBegin, [dbo].[Timesheets].[TimesheetTimeSpanEnd] as TimesheetTimeSpanEnd, [dbo].[Timesheets].[TimesheetCompanyID] as TimesheetCompanyID, [dbo].[Timesheets].[IsDeleted] as IsDeleted FROM [dbo].[Timesheets] LEFT JOIN [dbo].[Companies] ON [Timesheets].[TimesheetCompanyID] = [dbo].[Companies].ID WHERE [isDeleted] = 0;";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);

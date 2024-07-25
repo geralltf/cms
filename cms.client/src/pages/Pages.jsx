@@ -3,7 +3,124 @@ import "./../App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { IsLoggedIn } from "./Dashboard.jsx";
+import { GridViewComponent } from './../components/GridView.jsx';
 
+export function GridViewDataViewPages({ dataSource }) {
+    var [data, setData] = useState();
+    var [dataModel, setDataModel] = useState();
+
+    var model = {
+        fields: [
+            {
+                "fieldName": "ID",
+                "field": "id",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Page Name",
+                "field": "pageName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Page Title",
+                "field": "pageTitle",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Page Content",
+                "field": "pageContent",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Sequence Order ID",
+                "field": "sequenceOrderID",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Header Content",
+                "field": "headerContent",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Publish Version ID",
+                "field": "publishVersionID",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Site Locality Name",
+                "field": "SiteLocalityName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Footer Content",
+                "field": "footerContent",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Availability",
+                "field": "isDeleted",
+                "type": "boolean",
+                defaultValue: function () {
+                    return false;
+                }
+            }
+        ],
+        controllers: {
+            create: {
+                url: './page',
+                actionType: 'POST'
+            },
+            read: {
+                url: './page',
+                actionType: 'GET'
+            },
+            update: {
+                url: './page',
+                actionType: 'PUT'
+            },
+            delete: {
+                url: './page',
+                actionType: 'DELETE'
+            }
+        }
+    };
+
+    var config = {
+        pages: 20,
+        currentPage: 1
+    };
+    return (
+        <GridViewComponent dataSource={dataSource} model={model} config={config}>
+        </GridViewComponent>
+    );
+}
 export async function loader() {
     await new Promise((r) => setTimeout(r, 500));
     return "I came from the About.tsx loader function!";
@@ -145,7 +262,7 @@ export function Component() {
             <div>
                 <h1 id="tabelLabel">CMS Pages</h1>
                 <p>This pages section manages web pages for the curent site.</p>
-                {contentsPages}
+                <GridViewDataViewPages dataSource={pages}></GridViewDataViewPages>
             </div>
         </div>
     );

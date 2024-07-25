@@ -3,6 +3,119 @@ import "./../App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { IsLoggedIn } from "./Dashboard.jsx";
+import { GridViewComponent } from './../components/GridView.jsx';
+/*
+{
+  "id": 0,
+  "timesheetCategory": 0,
+  "timesheetDescription": "string",
+  "timesheetTimeSpanBegin": "2024-07-24T07:16:04.397Z",
+  "timesheetTimeSpanEnd": "2024-07-24T07:16:04.397Z",
+  "timesheetCompanyID": 0,
+  "companyName": "string",
+  "isDeleted": true
+}
+*/
+export function GridViewDataViewTimesheets({ dataSource }) {
+    var [data, setData] = useState();
+    var [dataModel, setDataModel] = useState();
+
+    var model = {
+        fields: [
+            {
+                "fieldName": "ID",
+                "field": "id",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "timesheetCategory",
+                "field": "timesheetCategory",
+                "type": "number",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Description",
+                "field": "timesheetDescription",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Time Begin",
+                "field": "timesheetTimeSpanBegin",
+                "type": "datetime",
+                defaultValue: function () {
+                    return '2024-07-24T07:16:04.397Z';
+                }
+            },
+            {
+                "fieldName": "Time End",
+                "field": "timesheetTimeSpanEnd",
+                "type": "datetime",
+                defaultValue: function () {
+                    return '2024-07-24T07:16:04.397Z';
+                }
+            },
+            {
+                "fieldName": "Company ID",
+                "field": "timesheetCompanyID",
+                "type": "string",
+                defaultValue: function () {
+                    return 0;
+                }
+            },
+            {
+                "fieldName": "Company Name",
+                "field": "companyName",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Availability",
+                "field": "isDeleted",
+                "type": "boolean",
+                defaultValue: function () {
+                    return false;
+                }
+            }
+        ],
+        controllers: {
+            create: {
+                url: './timesheet',
+                actionType: 'POST'
+            },
+            read: {
+                url: './timesheet',
+                actionType: 'GET'
+            },
+            update: {
+                url: './timesheet',
+                actionType: 'PUT'
+            },
+            delete: {
+                url: './timesheet',
+                actionType: 'DELETE'
+            }
+        }
+    };
+
+    var config = {
+        pages: 20,
+        currentPage: 1
+    };
+    return (
+        <GridViewComponent dataSource={dataSource} model={model} config={config}>
+        </GridViewComponent>
+    );
+}
 
 export async function loader() {
     await new Promise((r) => setTimeout(r, 500));
@@ -40,94 +153,6 @@ export function Component() {
         populateTimesheetData();
     }, []);
 
-    const contentsCompanies = companies === undefined ? <p>Loading companies</p> : <p>Companies Loaded</p>;
-
-    const contents = timesheets === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <div>
-            <div>
-                <form action="/timesheet" method="POST">
-                    <label htmlFor="description">Description:</label>
-                    <input type="text" id="timesheetDescription" name="timesheetDescription" />
-                    <br /><br />
-                    <label htmlFor="timesheetTimeSpanBegin">Date Begin:</label>
-                    <input type="text" id="timesheetTimeSpanBegin" name="timesheetTimeSpanBegin" />
-                    <br /><br />
-                    <label htmlFor="timesheetTimeSpanEnd">Date End:</label>
-                    <input type="text" id="timesheetTimeSpanEnd" name="timesheetTimeSpanEnd" />
-                    <br /><br />
-                    <label htmlFor="companies">Choose a company:</label>
-                    <select name="companies" id="companies" required="required">
-                        {companies === undefined ? <option value="0">LOADING...</option> : companies.map(company => <option value={company.id} key={company.id}>{company.companyName}</option>
-                        )}
-                    </select>
-                    <br /><br />
-                    <label htmlFor="timesheetCategories">Choose a timesheet category:</label>
-                    <select name="timesheetCategories" id="timesheetCategories" required="required">
-                        {timesheetCategories === undefined ? <option value="0">LOADING...</option> : timesheetCategories.map(category => <option value={category.id} key={category.id}>{category.categoryID}-{category.categoryName}-{category.categoryDescription}</option>
-                        )}
-                    </select>
-                    <br /><br />
-                    <button type="button" id="submitTimesheet" onClick={function (e) {
-                        console.log("submitting...");
-                        var desc = $("#timesheetDescription").val();
-                        var selectedCompany = $("#companies").find(":selected").val();
-                        var selectedCategory = $("#timesheetCategories").find(":selected").val();
-                        var timesheet = {
-                            "id": 0,
-                            "timesheetCategory": selectedCategory,
-                            "timesheetDescription": desc,
-                            "timesheetTimeSpanBegin": "2024-06-28T07:51:12.754Z",
-                            "timesheetTimeSpanEnd": "2024-06-28T07:51:12.754Z",
-                            "timesheetCompanyID": selectedCompany,
-                            "isDeleted": false
-                        };
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/timesheet",
-                            data: JSON.stringify(timesheet),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                populateTimesheetData();
-                                alert(data);
-
-                            },
-                            error: function (errMsg) {
-                                alert(errMsg);
-                            }
-                        });
-
-                    }}>Submit</button>
-                </form>
-            </div>
-            <table className="table table-striped" aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Description</th>
-                        <th>Date Begin</th>
-                        <th>Date End</th>
-                        <th>Company</th>
-                        <th>Availability</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {timesheets.map(timesheet =>
-                        <tr key={timesheet.id}>
-                            <td>{timesheet.id}</td>
-                            <td>{timesheet.timesheetDescription}</td>
-                            <td>{timesheet.timesheetTimeSpanBegin}</td>
-                            <td>{timesheet.timesheetTimeSpanEnd}</td>
-                            <td>{timesheet.timesheetCompanyID}-{timesheet.companyName}</td>
-                            <td>{timesheet.isDeleted ? "Deleted" : "Available"}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>;
-
     return (
         <div>
             <div>
@@ -136,7 +161,7 @@ export function Component() {
             <div>
                 <h1 id="tabelLabel">Timesheet Recorder</h1>
                 <p>This timesheet recorder saves entries to a secure database.</p>
-                {contents}
+                <GridViewDataViewTimesheets dataSource={timesheets}></GridViewDataViewTimesheets>
             </div>
         </div>
     );

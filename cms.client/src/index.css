@@ -82,3 +82,11 @@ button:focus-visible {
 .logged-in-signout {
     display: inline-block;
 }
+
+.cancel-default-no-display {
+    display: none;
+}
+
+.save-default-no-display {
+    display: none;
+}

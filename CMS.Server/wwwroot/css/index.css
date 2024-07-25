@@ -60,3 +60,12 @@ button:hover {
     animation-iteration-count: infinite;
 }
 */
+
+
+.cancel-default-no-display {
+    display: none;
+}
+
+.save-default-no-display {
+    display: none;
+}

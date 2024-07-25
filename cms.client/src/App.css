@@ -17,3 +17,12 @@ th, td {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.cancel-default-no-display {
+    display:none;
+}
+
+.save-default-no-display
+{
+    display:none;
+}
