@@ -52,6 +52,86 @@ export function GridViewDataViewEmployees({ dataSource }) {
                 }
             },
             {
+                "fieldName": "ABN",
+                "field": "abn",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "TFN",
+                "field": "tfn",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Email Address",
+                "field": "email",
+                "type": "email",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "State",
+                "field": "state",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Gender",
+                "field": "gender",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Suburb",
+                "field": "suburb",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "City",
+                "field": "city",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Country",
+                "field": "country",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Postcode",
+                "field": "postcode",
+                "type": "string",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
+                "fieldName": "Email Address",
+                "field": "email",
+                "type": "email",
+                defaultValue: function () {
+                    return '';
+                }
+            },
+            {
                 "fieldName": "Availability",
                 "field": "isDeleted",
                 "type": "boolean",
