@@ -190,6 +190,32 @@ export function GridViewComponent({ dataSource, model, config }) {
             // Manually swapping in html content of row with inputs mapped to predefined field names from model in placeholder.
             var parentTableRow = $('#' + $.escapeSelector('edit-' + elemID + gridID)).parent().parent();
 
+            // Save data obtained from all input elements in parent table row, 
+            // using model fields to create a JSON object to send to the server by ajax.
+            var childrenInputs = parentTableRow.find('td > input');
+
+            var objJSON = {};
+
+            childrenInputs.each(function () {
+                var value = $(this).val();
+                var inputName = $(this).attr('name');
+
+                fields.map(function (element2, index2, array2) {
+                    var inputID = 'inp_' + element2.field;
+                    if (inputID == inputName) {
+                        if (element2.type == 'boolean') {
+                            objJSON[element2.field] = (value == "true" || value == 1 || value == "1") ? true : false;
+                        }
+                        else {
+                            objJSON[element2.field] = value;
+                        }
+                    }
+                });
+            });
+            // SAVE/PUT request.
+            controller_ajax_save_update(objJSON);
+
+
             const tableRowChildren = fields.map((element2, index2, array2) => (
                 <td key={fields[index2].field}>
                     {element[element2.field]}
@@ -259,25 +285,7 @@ export function GridViewComponent({ dataSource, model, config }) {
 
             _object['id'] = elemID;
 
-            //var userData = { };
-            var action = controllers.delete.actionType;
-            fetch(controllers.delete.url, {
-                method: action,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(_object)
-            })
-            .then(response => response.json())
-            .then(data => {
-                //setData(data);
-                //dataSource = data;
-                controller_ajax();
-            })
-            .catch(error => {
-                // Handle any errors
-                console.error(error);
-            });
+            controller_ajax_destroy_delete(_object);
         };
 
         return (<tr key={element['id']}>
@@ -304,7 +312,44 @@ export function GridViewComponent({ dataSource, model, config }) {
     //    const data = await response.json();
     //    setEmployees(data);
     //}
-
+    const controller_ajax_save_update = function (userDataJSONOBJ) {
+        fetch(controllers.update.url, {
+            method: controllers.update.actionType,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userDataJSONOBJ),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data here
+                //setData(data);
+                //dataSource = data;
+                controller_ajax();
+            })
+            .catch(error => {
+                // Handle any errors
+            });
+    };
+    const controller_ajax_destroy_delete = function (userDataJSONOBJ) {
+        fetch(controllers.delete.url, {
+            method: controllers.delete.actionType,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userDataJSONOBJ),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data here
+                //setData(data);
+                //dataSource = data;
+                controller_ajax();
+            })
+            .catch(error => {
+                // Handle any errors
+            });
+    };
     const controller_ajax = function () {
         //var userData = { };
 

@@ -4,7 +4,7 @@ namespace CMS.Server
     {
         public long ID { get; set; }
         public long EmployeeID { get; set; }
-        public DateTime EmploymentStartDate { get; set; }
+        public DateTime? EmploymentStartDate { get; set; }
         public long EmploymentClassification { get; set; }
         public decimal UsualWorkingHoursPerDay { get; set; }
         public long JobStatus { get; set; }
@@ -22,7 +22,7 @@ namespace CMS.Server
         public decimal Deductions { get; set; }
         public long Grade { get; set; }
         public long Department { get; set; }
-        public DateTime PayDate { get; set; }
+        public DateTime? PayDate { get; set; }
         public string TaxPeroid { get; set; }
         public string InsuranceNumber { get; set; }
         public decimal SuperannuationRate { get; set; }
