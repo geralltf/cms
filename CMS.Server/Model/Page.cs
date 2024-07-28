@@ -14,8 +14,8 @@ namespace CMS.Server
         public string FooterContent { get; set; }
         public long SequenceOrderID { get; set; }
         public long AuthorID { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateLastModified { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateLastModified { get; set; }
         public bool IsDeleted { get; set; }
         public long ThemeID { get; set; }
         public long SiteID { get; set; }

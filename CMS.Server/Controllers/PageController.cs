@@ -67,8 +67,21 @@ namespace CMS.Server.Controllers
         public bool Put(Page page)
         {
             int recordAffectedCount = -1;
+            string updateSetDateCreated = string.Empty;
+            string updateSetDateLastModified = string.Empty;
+            string updateQuery = string.Empty;
 
-            string updateQuery = "UPDATE [dbo].[Pages] SET [PageName] = @PageName, [PageTitle] = @PageTitle, [CategoryID] = @CategoryID, [ParentID] = @ParentID, [PageAreaID] = @PageAreaID, [PageContent] = @PageContent, [HeaderContent] = @HeaderContent, [FooterContent] = @FooterContent, [SequenceOrderID] = @SequenceOrderID, [AuthorID] = @AuthorID, [DateCreated] = @DateCreated, [DateLastModified] = @DateLastModified, [IsDeleted] = @IsDeleted, [ThemeID] = @ThemeID, [SiteID] = @SiteID, [SiteLocalityName] = @SiteLocalityName, [PublishVersionID] = @PublishVersionID, [IsPublished] = @IsPublished WHERE [ID] = @ID";
+            if (page.DateCreated != null)
+            {
+                updateSetDateCreated = "[DateCreated] = @DateCreated,";
+            }
+
+            if (page.DateLastModified != null)
+            {
+                updateSetDateLastModified = "[DateLastModified] = @DateLastModified,";
+            }
+
+            updateQuery = "UPDATE [dbo].[Pages] SET [PageName] = @PageName, [PageTitle] = @PageTitle, [CategoryID] = @CategoryID, [ParentID] = @ParentID, [PageAreaID] = @PageAreaID, [PageContent] = @PageContent, [HeaderContent] = @HeaderContent, [FooterContent] = @FooterContent, [SequenceOrderID] = @SequenceOrderID, [AuthorID] = @AuthorID, "+updateSetDateCreated+" "+ updateSetDateLastModified+" [IsDeleted] = @IsDeleted, [ThemeID] = @ThemeID, [SiteID] = @SiteID, [SiteLocalityName] = @SiteLocalityName, [PublishVersionID] = @PublishVersionID, [IsPublished] = @IsPublished WHERE [ID] = @ID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
