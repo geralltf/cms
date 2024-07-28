@@ -8,7 +8,7 @@ import React, { useId } from 'react'
 import { renderToString } from 'react-dom/server';
 
 export function GridViewComponent({ dataSource, model, config }) {
-    var [data, setData] = useState();
+    var [data, setData] = useState(0);
     const id = useId();
 
     //const data = dataSource;
@@ -195,12 +195,14 @@ export function GridViewComponent({ dataSource, model, config }) {
             var childrenInputs = parentTableRow.find('td > input');
 
             var objJSON = {};
+            var objElemIndex = -1;
 
             childrenInputs.each(function () {
                 var value = $(this).val();
                 var inputName = $(this).attr('name');
 
                 fields.map(function (element2, index2, array2) {
+                    objElemIndex = index2;
                     var inputID = 'inp_' + element2.field;
                     if (inputID == inputName) {
                         if (element2.type == 'boolean') {
@@ -212,61 +214,65 @@ export function GridViewComponent({ dataSource, model, config }) {
                     }
                 });
             });
-            // SAVE/PUT request.
-            controller_ajax_save_update(objJSON);
 
-
-            const tableRowChildren = fields.map((element2, index2, array2) => (
-                <td key={fields[index2].field}>
-                    {element[element2.field]}
-                </td>
-            ));
-
-            const tableRow = (
-                <tr>
-                    {tableRowChildren}
-                    <td>
-                        <button id={'edit-' + element['id'] + '-' + id} onClick={function (e) {
-                            button_edit_onclick(e);
-                        }}>Edit</button>
-                        <button className="gridview save-default-no-display" id={'save-' + element['id'] + '-' + id} onClick={function (e) {
-                            button_save_onclick(e);
-                        }}>Save</button>
-                        <button className="gridview cancel-default-no-display" id={'cancel-' + element['id'] + '-' + id} onClick={function (e) {
-                            button_canceledit_onclick(e);
-                        }}>Cancel</button>
-                        <button id={'delete-' + element['id'] + '-' + id} onClick={function (e) {
-                            button_delete_onclick(e);
-                        }}>Delete</button>
+            var onSaveUpdateCompleted = function () {
+                const tableRowChildren = fields.map((element2, index2, array2) => (
+                    <td key={fields[index2].field}>
+                        {(objElemIndex == index2) ? objJSON[element2.field] : objJSON[element2.field]}
                     </td>
-                </tr>
-            );
+                ));
 
-            const html = renderToString(tableRow.props.children);
-            parentTableRow.html(html);
+                const tableRow = (
+                    <tr>
+                        {tableRowChildren}
+                        <td>
+                            <button id={'edit-' + element['id'] + '-' + id} onClick={function (e) {
+                                button_edit_onclick(e);
+                            }}>Edit</button>
+                            <button className="gridview save-default-no-display" id={'save-' + element['id'] + '-' + id} onClick={function (e) {
+                                button_save_onclick(e);
+                            }}>Save</button>
+                            <button className="gridview cancel-default-no-display" id={'cancel-' + element['id'] + '-' + id} onClick={function (e) {
+                                button_canceledit_onclick(e);
+                            }}>Cancel</button>
+                            <button id={'delete-' + element['id'] + '-' + id} onClick={function (e) {
+                                button_delete_onclick(e);
+                            }}>Delete</button>
+                        </td>
+                    </tr>
+                );
 
-            var editButton = $('#' + $.escapeSelector('edit-' + elemID + gridID));
-            var deleteButton = $('#' + $.escapeSelector('delete-' + elemID + gridID));
-            var cancelButton = $('#' + $.escapeSelector('cancel-' + elemID + gridID));
-            var saveButton = $('#' + $.escapeSelector('save-' + elemID + gridID));
+                const html = renderToString(tableRow.props.children);
+                parentTableRow.html(html);
 
-            editButton.show();
-            deleteButton.show();
-            cancelButton.hide();
-            saveButton.hide();
+                var editButton = $('#' + $.escapeSelector('edit-' + elemID + gridID));
+                var deleteButton = $('#' + $.escapeSelector('delete-' + elemID + gridID));
+                var cancelButton = $('#' + $.escapeSelector('cancel-' + elemID + gridID));
+                var saveButton = $('#' + $.escapeSelector('save-' + elemID + gridID));
 
-            cancelButton.click(function (e) {
-                button_canceledit_onclick(e);
-            });
-            saveButton.click(function (e) {
-                button_save_onclick(e);
-            });
-            deleteButton.click(function (e) {
-                button_delete_onclick(e);
-            });
-            editButton.click(function (e) {
-                button_edit_onclick(e);
-            });
+                editButton.show();
+                deleteButton.show();
+                cancelButton.hide();
+                saveButton.hide();
+
+                cancelButton.click(function (e) {
+                    button_canceledit_onclick(e);
+                });
+                saveButton.click(function (e) {
+                    button_save_onclick(e);
+                });
+                deleteButton.click(function (e) {
+                    button_delete_onclick(e);
+                });
+                editButton.click(function (e) {
+                    button_edit_onclick(e);
+                });
+
+                //forceUpdate();
+            };
+
+            // SAVE/PUT request.
+            controller_ajax_save_update(objJSON, onSaveUpdateCompleted);
         };
         const button_delete_onclick = function (e) {
             console.log("deleting...");
@@ -312,7 +318,7 @@ export function GridViewComponent({ dataSource, model, config }) {
     //    const data = await response.json();
     //    setEmployees(data);
     //}
-    const controller_ajax_save_update = function (userDataJSONOBJ) {
+    const controller_ajax_save_update = function (userDataJSONOBJ, onSaveUpdateCompleted) {
         fetch(controllers.update.url, {
             method: controllers.update.actionType,
             headers: {
@@ -325,7 +331,7 @@ export function GridViewComponent({ dataSource, model, config }) {
                 // Handle the response data here
                 //setData(data);
                 //dataSource = data;
-                controller_ajax();
+                controller_ajax(onSaveUpdateCompleted);
             })
             .catch(error => {
                 // Handle any errors
@@ -350,7 +356,7 @@ export function GridViewComponent({ dataSource, model, config }) {
                 // Handle any errors
             });
     };
-    const controller_ajax = function () {
+    const controller_ajax = function (onSaveUpdateCompleted) {
         //var userData = { };
 
         fetch(controllers.read.url, {
@@ -365,6 +371,7 @@ export function GridViewComponent({ dataSource, model, config }) {
             // Handle the response data here
             setData(data);
             dataSource = data;
+            onSaveUpdateCompleted();
         })
         .catch(error => {
             // Handle any errors
@@ -375,10 +382,10 @@ export function GridViewComponent({ dataSource, model, config }) {
         controller_ajax();
     }, []);
 
-    $(document).ready(function () {
+    //$(document).ready(function () {
         // HTTP GET request for controller read.
         //controller_ajax();
-    });
+    //});
 
     const dataItemsView = dataSource === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>

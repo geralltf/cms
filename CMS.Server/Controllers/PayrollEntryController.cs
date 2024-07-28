@@ -78,21 +78,37 @@ namespace CMS.Server.Controllers
         public bool Put(PayrollEntry payrollEntry)
         {
             int recordAffectedCount = -1;
+            string updateQuery = string.Empty;
+            string updateSetEmploymentSD = string.Empty;
+            string updateSetPayDate = string.Empty;
 
-            string updateQuery = "UPDATE [dbo].[PayrollEntries] SET [EmploymentStartDate] = @EmploymentStartDate,[EmploymentClassification] = @EmploymentClassification,[UsualWorkingHoursPerDay] = @UsualWorkingHoursPerDay," +
-                "[JobStatus] = @JobStatus,[Reference] = @Reference,[LeaveEntitlements] = @LeaveEntitlements,[WageSupplements] = @WageSupplements," +
-                "[BasicSalaryPerHour] = @BasicSalaryPerHour,[OverTimePerHour] = @OverTimePerHour,[GrossPay] = @GrossPay,[NetPay] = @NetPay," +
-                "[Tax] = @Tax,[PensionAndSuperannuation] = @PensionAndSuperannuation,[StudentLoan] = @StudentLoan,[InsurancePay] = @InsurancePay," +
-                "[Deductions] = @Deductions,[Grade] = @Grade,[Department] = @Department,[PayDate] = @PayDate,[TaxPeroid] = @TaxPeroid," +
-                "[InsuranceNumber] = @InsuranceNumber,[SuperannuationRate] = @SuperannuationRate,[TaxiblePay] = @TaxiblePay," +
-                "[MedicareDeduction] = @MedicareDeduction,[OtherDeductions] = @OtherDeductions,[PayGWithholdingNumber] = @PayGWithholdingNumber," +
-                "[EmployerCompany] = @EmployerCompany WHERE [ID] = @ID";
+            if (payrollEntry.PayDate != null)
+            {
+                updateSetPayDate = "[PayDate] = @PayDate,";
+            }
+            if (payrollEntry.EmploymentStartDate != null)
+            {
+                updateSetEmploymentSD = "[EmploymentStartDate] = @EmploymentStartDate,";
+            }
+
+            updateQuery = "UPDATE [dbo].[PayrollEntries] SET " + updateSetEmploymentSD + "[EmploymentClassification] = @EmploymentClassification,[UsualWorkingHoursPerDay] = @UsualWorkingHoursPerDay," +
+"[JobStatus] = @JobStatus,[Reference] = @Reference,[LeaveEntitlements] = @LeaveEntitlements,[WageSupplements] = @WageSupplements," +
+"[BasicSalaryPerHour] = @BasicSalaryPerHour,[OverTimePerHour] = @OverTimePerHour,[GrossPay] = @GrossPay,[NetPay] = @NetPay," +
+"[Tax] = @Tax,[PensionAndSuperannuation] = @PensionAndSuperannuation,[StudentLoan] = @StudentLoan,[InsurancePay] = @InsurancePay," +
+"[Deductions] = @Deductions,[Grade] = @Grade,[Department] = @Department,"+updateSetPayDate+"[TaxPeroid] = @TaxPeroid," +
+"[InsuranceNumber] = @InsuranceNumber,[SuperannuationRate] = @SuperannuationRate,[TaxiblePay] = @TaxiblePay," +
+"[MedicareDeduction] = @MedicareDeduction,[OtherDeductions] = @OtherDeductions,[PayGWithholdingNumber] = @PayGWithholdingNumber," +
+"[EmployerCompany] = @EmployerCompany WHERE [ID] = @ID";
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(updateQuery, connection);
                 command.Parameters.AddWithValue("@ID", payrollEntry.ID);
                 command.Parameters.AddWithValue("@EmployeeID", payrollEntry.EmployeeID);
-                command.Parameters.AddWithValue("@EmploymentStartDate", payrollEntry.EmploymentStartDate);
+                if (payrollEntry.EmploymentStartDate != null)
+                {
+                    command.Parameters.AddWithValue("@EmploymentStartDate", payrollEntry.EmploymentStartDate);
+                }
                 command.Parameters.AddWithValue("@EmploymentClassification", payrollEntry.EmploymentClassification);
                 command.Parameters.AddWithValue("@UsualWorkingHoursPerDay", payrollEntry.UsualWorkingHoursPerDay);
                 command.Parameters.AddWithValue("@JobStatus", payrollEntry.JobStatus);
@@ -110,7 +126,10 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@Deductions", payrollEntry.Deductions);
                 command.Parameters.AddWithValue("@Grade", payrollEntry.Grade);
                 command.Parameters.AddWithValue("@Department", payrollEntry.Department);
-                command.Parameters.AddWithValue("@PayDate", payrollEntry.PayDate);
+                if (payrollEntry.PayDate != null)
+                {
+                    command.Parameters.AddWithValue("@PayDate", payrollEntry.PayDate);
+                }
                 command.Parameters.AddWithValue("@TaxPeroid", payrollEntry.TaxPeroid);
                 command.Parameters.AddWithValue("@InsuranceNumber", payrollEntry.InsurancePay);
                 command.Parameters.AddWithValue("@SuperannuationRate", payrollEntry.SuperannuationRate);
