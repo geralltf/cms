@@ -97,8 +97,17 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@FooterContent", page.FooterContent);
                 command.Parameters.AddWithValue("@SequenceOrderID", page.SequenceOrderID);
                 command.Parameters.AddWithValue("@AuthorID", page.AuthorID);
-                command.Parameters.AddWithValue("@DateCreated", page.DateCreated);
-                command.Parameters.AddWithValue("@DateLastModified", page.DateLastModified);
+
+                if (page.DateCreated != null)
+                {
+                    command.Parameters.AddWithValue("@DateCreated", page.DateCreated);
+                }
+
+                if (page.DateLastModified != null)
+                {
+                    command.Parameters.AddWithValue("@DateLastModified", page.DateLastModified);
+                }
+
                 command.Parameters.AddWithValue("@IsDeleted", page.IsDeleted);
                 command.Parameters.AddWithValue("@ThemeID", page.ThemeID);
                 command.Parameters.AddWithValue("@SiteID", page.SiteID);

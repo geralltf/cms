@@ -118,6 +118,10 @@ export default defineConfig({
                 target: 'https://localhost:7062/',
                 secure: false
             },
+            '^/timesheets': {
+                target: 'https://localhost:7062/',
+                secure: false
+            },
         },
         port: 5173,
         https: {

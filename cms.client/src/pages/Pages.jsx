@@ -6,9 +6,6 @@ import { IsLoggedIn } from "./Dashboard.jsx";
 import { GridViewComponent } from './../components/GridView.jsx';
 
 export function GridViewDataViewPages({ dataSource }) {
-    var [data, setData] = useState();
-    var [dataModel, setDataModel] = useState();
-
     var model = {
         fields: [
             {

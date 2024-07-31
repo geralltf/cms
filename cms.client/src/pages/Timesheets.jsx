@@ -4,22 +4,8 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { IsLoggedIn } from "./Dashboard.jsx";
 import { GridViewComponent } from './../components/GridView.jsx';
-/*
-{
-  "id": 0,
-  "timesheetCategory": 0,
-  "timesheetDescription": "string",
-  "timesheetTimeSpanBegin": "2024-07-24T07:16:04.397Z",
-  "timesheetTimeSpanEnd": "2024-07-24T07:16:04.397Z",
-  "timesheetCompanyID": 0,
-  "companyName": "string",
-  "isDeleted": true
-}
-*/
-export function GridViewDataViewTimesheets({ dataSource }) {
-    var [data, setData] = useState();
-    var [dataModel, setDataModel] = useState();
 
+export function GridViewDataViewTimesheets({ dataSource }) {
     var model = {
         fields: [
             {
@@ -31,7 +17,7 @@ export function GridViewDataViewTimesheets({ dataSource }) {
                 }
             },
             {
-                "fieldName": "timesheetCategory",
+                "fieldName": "Timesheet Category",
                 "field": "timesheetCategory",
                 "type": "number",
                 defaultValue: function () {

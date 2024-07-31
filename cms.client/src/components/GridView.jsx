@@ -8,7 +8,8 @@ import React, { useId } from 'react'
 import { renderToString } from 'react-dom/server';
 
 export function GridViewComponent({ dataSource, model, config }) {
-    var [data, setData] = useState(0);
+    //var [data, setData] = useState();
+    var [dataSource, setDataSource] = useState();
     const id = useId();
 
     //const data = dataSource;
@@ -215,13 +216,19 @@ export function GridViewComponent({ dataSource, model, config }) {
                 });
             });
 
+            dataSource.map(function (element4, index4, array4) {
+                fields.map(function (element5, index5, array5) {
+                    element4[element5.field] = objJSON[element5.field];
+                });
+            });
+
             var onSaveUpdateCompleted = function () {
                 const tableRowChildren = fields.map((element2, index2, array2) => (
                     <td key={fields[index2].field}>
                         {(objElemIndex == index2) ? objJSON[element2.field] : objJSON[element2.field]}
                     </td>
                 ));
-
+                
                 const tableRow = (
                     <tr>
                         {tableRowChildren}
@@ -350,7 +357,9 @@ export function GridViewComponent({ dataSource, model, config }) {
                 // Handle the response data here
                 //setData(data);
                 //dataSource = data;
-                controller_ajax();
+                controller_ajax(function () {
+                    // on completed.
+                });
             })
             .catch(error => {
                 // Handle any errors
@@ -369,8 +378,10 @@ export function GridViewComponent({ dataSource, model, config }) {
         .then(response => response.json())
         .then(data => {
             // Handle the response data here
-            setData(data);
-            dataSource = data;
+            //setData(data);
+            setDataSource(data);
+            
+            //dataSource = data;
             onSaveUpdateCompleted();
         })
         .catch(error => {
@@ -400,7 +411,7 @@ export function GridViewComponent({ dataSource, model, config }) {
                 </thead>
                 <tbody>
                     {
-                        data === undefined ? "" : data.map((element, index, array) => data_row_onload(element, index, array))
+                        dataSource === undefined ? "" : dataSource.map((element, index, array) => data_row_onload(element, index, array))
                     }
                 </tbody>
             </table>
