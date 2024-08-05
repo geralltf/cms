@@ -13,7 +13,7 @@
         public string Country { get; set; }
         public string Postcode { get; set; }
         public string Email { get; set; }
-        public DateOnly DOB { get; set; }
+        public DateOnly? DOB { get; set; }
         public string Gender { get; set; }
         public string TFN { get; set; }
         public string ABN { get; set; }

@@ -22,10 +22,22 @@ namespace CMS.Server.Controllers
         [HttpPost(Name = "PostPage")]
         public bool Post(Page page)
         {
+            page.DateCreated = DateTime.Now;
+            //page.DateLastModified = DateTime.Now;
             int recordAffectedCount = -1;
+            string insertQueryDateLastModified = string.Empty;
+            string insertQueryDateLastModifiedParam = string.Empty;
+            string insertQuery = string.Empty;
 
-            string insertQuery = "INSERT INTO [dbo].[Pages] ([PageName], [PageTitle], [CategoryID], [ParentID], [PageAreaID], [PageContent], [HeaderContent], [FooterContent], [SequenceOrderID], [AuthorID], [DateCreated], [DateLastModified], [IsDeleted], [ThemeID], [SiteID], [SiteLocalityName], [PublishVersionID], [IsPublished]) " 
-                + "VALUES (@PageName, @PageTitle, @CategoryID, @ParentID, @PageAreaID, @PageContent, @HeaderContent, @FooterContent, @SequenceOrderID, @AuthorID, @DateCreated, @DateLastModified, @IsDeleted, @ThemeID, @SiteID, @SiteLocalityName, @PublishVersionID, @IsPublished)";
+            if (page.DateLastModified != null)
+            {
+                insertQueryDateLastModified = "[DateLastModified],";
+                insertQueryDateLastModifiedParam = "@DateLastModified,";
+            }
+
+            insertQuery = "INSERT INTO [dbo].[Pages] ([PageName], [PageTitle], [CategoryID], [ParentID], [PageAreaID], [PageContent], [HeaderContent], [FooterContent], [SequenceOrderID], [AuthorID], [DateCreated], " + insertQueryDateLastModified + " [IsDeleted], [ThemeID], [SiteID], [SiteLocalityName], [PublishVersionID], [IsPublished]) "
+    + "VALUES (@PageName, @PageTitle, @CategoryID, @ParentID, @PageAreaID, @PageContent, @HeaderContent, @FooterContent, @SequenceOrderID, @AuthorID, @DateCreated, " + insertQueryDateLastModifiedParam + " @IsDeleted, @ThemeID, @SiteID, @SiteLocalityName, @PublishVersionID, @IsPublished)";
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -41,7 +53,10 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@SequenceOrderID", page.SequenceOrderID);
                 command.Parameters.AddWithValue("@AuthorID", page.AuthorID);
                 command.Parameters.AddWithValue("@DateCreated", page.DateCreated);
-                command.Parameters.AddWithValue("@DateLastModified", page.DateLastModified);
+                if(page.DateLastModified != null)
+                {
+                    command.Parameters.AddWithValue("@DateLastModified", page.DateLastModified);
+                }
                 command.Parameters.AddWithValue("@IsDeleted", page.IsDeleted);
                 command.Parameters.AddWithValue("@ThemeID", page.ThemeID);
                 command.Parameters.AddWithValue("@SiteID", page.SiteID);

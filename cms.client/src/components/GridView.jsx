@@ -2,13 +2,15 @@ import { useLoaderData } from "react-router-dom";
 import "./../App.css";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import { useEffect, useState } from 'react';
-//import axios from 'axios';
 import React, { useId } from 'react'
 
 import { renderToString } from 'react-dom/server';
 
+var memory_gridview_controller_ajax = {
+    'controllers' : []
+};
+
 export function GridViewComponent({ dataSource, model, config }) {
-    //var [data, setData] = useState();
     var [dataSource, setDataSource] = useState();
     const id = useId();
 
@@ -274,8 +276,6 @@ export function GridViewComponent({ dataSource, model, config }) {
                 editButton.click(function (e) {
                     button_edit_onclick(e);
                 });
-
-                //forceUpdate();
             };
 
             // SAVE/PUT request.
@@ -389,14 +389,20 @@ export function GridViewComponent({ dataSource, model, config }) {
         });
     };
 
+    memory_gridview_controller_ajax.controllers.push(controller_ajax);
+
     useEffect(() => {
-        controller_ajax();
+        controller_ajax(function () {
+            // on save completed.
+        });
     }, []);
 
     //$(document).ready(function () {
         // HTTP GET request for controller read.
         //controller_ajax();
     //});
+
+    //GridViewComponent.prototype.onRefresh = onRefresh;
 
     const dataItemsView = dataSource === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
@@ -423,3 +429,14 @@ export function GridViewComponent({ dataSource, model, config }) {
         </section>
     );
 }
+
+export function GridRefresh() {
+
+    memory_gridview_controller_ajax.controllers.forEach((val, index, array) => val(function () {
+        // on save completed.
+    }));
+
+    //controller_ajax(function () {
+    //    // on save completed.
+    //});
+};

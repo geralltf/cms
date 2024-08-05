@@ -22,12 +22,24 @@ namespace CMS.Server.Controllers
         [HttpPost(Name = "PostEmployee")]
         public bool Post(Employee employee)
         {
-            DateTime dateTimeDOB = new DateTime(employee.DOB.Year, employee.DOB.Month, employee.DOB.Day);
+            DateTime? dateTimeDOB = null;
+
+            if (employee.DOB != null)
+            {
+                dateTimeDOB = new DateTime(employee.DOB.Value.Year, employee.DOB.Value.Month, employee.DOB.Value.Day);
+            }
 
             int recordAffectedCount = -1;
 
-            string insertQuery = "INSERT INTO [dbo].[Employees] ([EmployeeFirstName],[EmployeeMidleName],[EmployeeLastName],[StreetAddress],[Suburb],[City],[State],[Country],[Postcode],[Email],[DOB],[Gender],[TFN],[ABN]) "
-                + "VALUES (@EmployeeFirstName, @EmployeeMidleName, @EmployeeLastName, @StreetAddress, @Suburb, @City, @State, @Country, @Postcode, @Email, @DOB, @Gender, @TFN, @ABN)";
+            string insertQueryDOB = string.Empty;
+            string insertQueryDOBParam = string.Empty;
+            if(dateTimeDOB!= null)
+            {
+                insertQueryDOB = "[DOB],";
+                insertQueryDOBParam = "@DOB,";
+            }
+            string insertQuery = "INSERT INTO [dbo].[Employees] ([EmployeeFirstName],[EmployeeMidleName],[EmployeeLastName],[StreetAddress],[Suburb],[City],[State],[Country],[Postcode],[Email],"+ insertQueryDOB + "[Gender],[TFN],[ABN]) "
+                + "VALUES (@EmployeeFirstName, @EmployeeMidleName, @EmployeeLastName, @StreetAddress, @Suburb, @City, @State, @Country, @Postcode, @Email, "+ insertQueryDOBParam + " @Gender, @TFN, @ABN)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -42,7 +54,10 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@Country", employee.Country);
                 command.Parameters.AddWithValue("@Postcode", employee.Postcode);
                 command.Parameters.AddWithValue("@Email", employee.Email);
-                command.Parameters.AddWithValue("@DOB", dateTimeDOB);
+                if(dateTimeDOB != null)
+                {
+                    command.Parameters.AddWithValue("@DOB", dateTimeDOB);
+                }
                 command.Parameters.AddWithValue("@Gender", employee.Gender);
                 command.Parameters.AddWithValue("@TFN", employee.TFN);
                 command.Parameters.AddWithValue("@ABN", employee.ABN);
