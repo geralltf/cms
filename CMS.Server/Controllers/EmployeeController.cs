@@ -81,11 +81,18 @@ namespace CMS.Server.Controllers
         {
             int recordAffectedCount = -1;
 
-            string insertQuery = "UPDATE [dbo].[Employees] SET [EmployeeFirstName] = @EmployeeFirstName,[EmployeeMidleName] = @EmployeeMidleName, [EmployeeLastName] = @EmployeeLastName, [StreetAddress] = @StreetAddress, [Suburb] = @Suburb, [City] = @City, [State] = @State, [Country] = @Country, [Postcode] = @Postcode, [Email] = @Email, [DOB] = @DOB, [Gender] = @Gender, [TFN] = @TFN, [ABN] = @ABN WHERE [ID] = @ID";
+            string updateQuery = string.Empty;
+            string updateQueryDOB = string.Empty;
+
+            if (employee.DOB != null)
+            {
+                updateQueryDOB = "[DOB] = @DOB,";
+            }
+            updateQuery = "UPDATE [dbo].[Employees] SET [EmployeeFirstName] = @EmployeeFirstName,[EmployeeMidleName] = @EmployeeMidleName, [EmployeeLastName] = @EmployeeLastName, [StreetAddress] = @StreetAddress, [Suburb] = @Suburb, [City] = @City, [State] = @State, [Country] = @Country, [Postcode] = @Postcode, [Email] = @Email, " + updateQueryDOB + " [Gender] = @Gender, [TFN] = @TFN, [ABN] = @ABN WHERE [ID] = @ID";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(insertQuery, connection);
+                SqlCommand command = new SqlCommand(updateQuery, connection);
                 command.Parameters.AddWithValue("@ID", employee.ID);
                 command.Parameters.AddWithValue("@EmployeeFirstName", employee.FirstName);
                 command.Parameters.AddWithValue("@EmployeeMidleName", employee.MiddleName);
@@ -97,7 +104,10 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@Country", employee.Country);
                 command.Parameters.AddWithValue("@Postcode", employee.Postcode);
                 command.Parameters.AddWithValue("@Email", employee.Email);
-                command.Parameters.AddWithValue("@DOB", employee.DOB);
+                if(employee.DOB!= null)
+                {
+                    command.Parameters.AddWithValue("@DOB", employee.DOB);
+                }
                 command.Parameters.AddWithValue("@Gender", employee.Gender);
                 command.Parameters.AddWithValue("@TFN", employee.TFN);
                 command.Parameters.AddWithValue("@ABN", employee.ABN);

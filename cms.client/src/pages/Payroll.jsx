@@ -122,14 +122,6 @@ export function FieldFormViewComponentPayrollEmployee({ dataSource }) {
                 }
             },
             {
-                "fieldName": "Email Address",
-                "field": "email",
-                "type": "email",
-                defaultValue: function () {
-                    return '';
-                }
-            },
-            {
                 "fieldName": "Availability",
                 "field": "isDeleted",
                 "type": "boolean",
@@ -279,14 +271,6 @@ export function GridViewDataViewEmployees({ dataSource }) {
                 "fieldName": "Postcode",
                 "field": "postcode",
                 "type": "string",
-                defaultValue: function () {
-                    return '';
-                }
-            },
-            {
-                "fieldName": "Email Address",
-                "field": "email",
-                "type": "email",
                 defaultValue: function () {
                     return '';
                 }
