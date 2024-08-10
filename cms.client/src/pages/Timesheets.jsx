@@ -23,7 +23,8 @@ export function FieldFormViewComponentTimesheets({ dataSource }) {
                 "type": "number",
                 defaultValue: function () {
                     return 0;
-                }
+                },
+                dataSource: [{ optionValue: '1', optionText: 'Software Development' }]
             },
             {
                 "fieldName": "Description",

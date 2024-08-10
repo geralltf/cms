@@ -9,6 +9,21 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
     var [dataSource, setDataSource] = useState();
     const id = useId();
 
+    function selectORinput(field) {
+        if (field.dataSource !== undefined)
+        {
+            return (<select key={field.field + '-' + id} id={field.field + '-' + id + '24216'} name={field.field}>
+                {field.dataSource.map(dataItem => (
+                    <option value={dataItem.optionValue}>{dataItem.optionText}</option>
+                ))}
+            </select>);
+        }
+        else {
+            return (<input key={field.field + '-' + id} type={(field.field == 'id') ? 'hidden' : (field.type == 'date' ? 'date' : (field.type == 'datetime') ? 'datetime-local' : 'text')} id={field.field + '-' + id + '24213'} name={field.field} />);
+        }
+
+    }
+
     const dataItemsView = model === undefined
         ? <p><em>Loading... Please assign a model to the current field form view.</em></p>
         : <div>
@@ -16,7 +31,8 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
                 {model.fields.map(field => (
                     <div>
                         <label htmlFor={field.field}>{ (field.field=='id')?'' : field.fieldName +':'}</label>
-                        <input key={field.field + '-' + id} type={(field.field == 'id') ? 'hidden' : (field.type == 'date' ? 'date' : (field.type == 'datetime') ? 'datetime-local' : 'text')} id={field.field + '-' + id +'24213'} name={field.field} />
+                        { selectORinput(field) }
+                            
                     </div>
                 ))}
                 <br />

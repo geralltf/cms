@@ -106,7 +106,8 @@ namespace CMS.Server.Controllers
                 command.Parameters.AddWithValue("@Email", employee.Email);
                 if(employee.DOB!= null)
                 {
-                    command.Parameters.AddWithValue("@DOB", employee.DOB);
+                    DateTime dtDOB = new DateTime(employee.DOB.Value.Year, employee.DOB.Value.Month, employee.DOB.Value.Day);
+                    command.Parameters.AddWithValue("@DOB", dtDOB);
                 }
                 command.Parameters.AddWithValue("@Gender", employee.Gender);
                 command.Parameters.AddWithValue("@TFN", employee.TFN);

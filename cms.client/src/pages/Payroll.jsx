@@ -42,6 +42,14 @@ export function FieldFormViewComponentPayrollEmployee({ dataSource }) {
                 }
             },
             {
+                "fieldName": "DOB",
+                "field": "dob",
+                "type": "date",
+                defaultValue: function () {
+                    return '2024-07-24T07:16:04.397Z';
+                }
+            },
+            {
                 "fieldName": "Street Address",
                 "field": "streetAddress",
                 "type": "string",
@@ -193,6 +201,14 @@ export function GridViewDataViewEmployees({ dataSource }) {
                 "type": "string",
                 defaultValue: function () {
                     return '';
+                }
+            },
+            {
+                "fieldName": "DOB",
+                "field": "dob",
+                "type": "date",
+                defaultValue: function () {
+                    return '2024-07-24T07:16:04.397Z';
                 }
             },
             {
