@@ -10,13 +10,10 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
     const id = useId();
 
     function selectORinput(field) {
-        if (field.dataSource !== undefined)
+        if (field.populateDataSource !== undefined)
         {
             return (<select key={field.field + '-' + id} id={field.field + '-' + id + '24216'} name={field.field}>
                 {(field.populateDataSource !== undefined) ? field.populateDataSource(field) : null}
-                {/*{field.dataSource.map(dataItem => (*/}
-                {/*    <option value={dataItem.optionValue}>{dataItem.optionText}</option>*/}
-                {/*))}*/}
             </select>);
         }
         else {
@@ -40,6 +37,7 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
                 <button type="button" id="submitPage" onClick={function (e) {
                     console.log("submitting...");
                     var childInputs = $(e.currentTarget).parent().find('input');
+                    var childSelects = $(e.currentTarget).parent().find('select');
                     var objJSON = {};
                     childInputs.map(function(childInput, index, array){
                         var name = $(index).attr('name');
@@ -52,7 +50,17 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
                         }
                         objJSON[name] = selectedValue;
                     }); 
-
+                    childSelects.map(function (childSelect, index, array) {
+                        var name = $(index).attr('name');
+                        var selectedValue = $(index).val();
+                        if (name == 'id') {
+                            selectedValue = -1;
+                        }
+                        if (name == 'isDeleted') {
+                            selectedValue = false; // HACK: TODO: Remove and utilise field type system.
+                        }
+                        objJSON[name] = selectedValue;
+                    }); 
                     $.ajax({
                         type: model.controllers.create.actionType,
                         url: model.controllers.create.url,
