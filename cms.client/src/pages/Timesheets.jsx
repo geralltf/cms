@@ -24,7 +24,48 @@ export function FieldFormViewComponentTimesheets({ dataSource }) {
                 defaultValue: function () {
                     return 0;
                 },
-                dataSource: [{ optionValue: '1', optionText: 'Software Development' }]
+                //populateDataSource: async function (field) {
+                populateDataSource: function (field) {
+                    //const response = await fetch('category');
+                    //const data = await response.json();
+                    ////var [dataSourceCategories, setDataSourceCategories] = useState();
+                    ////setDataSourceCategories(data);
+                    //if (data !== undefined) {
+                    //    //console.log(data);
+                    //    return field.dataSource;
+                    //    return data.map(function (dataItem, index, array) {
+                    //        return <option value={dataItem.id}>{dataItem.categoryName}</option>;
+                    //    });
+                    //    //return null;
+                    //}
+                    //else {
+                    //    return null;
+                    //}
+
+                    //const [timeCategories, setTimeCategories] = useState();
+                    //field.dataSource = timeCategories;
+
+                    const request = new XMLHttpRequest();
+                    request.open("GET", "/category", false); // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        var jsonResp = JSON.parse(request.responseText);
+                        console.log(request.responseText);
+
+                        return jsonResp.map(function (dataItem, index, array) {
+                            return <option value={dataItem.id}>{dataItem.categoryName}</option>;
+                        });
+
+                        //return request.responseText;
+                    }
+                    return null;
+                },
+                dataSource: [
+                    { id: '1', categoryName: 'Software Development' },
+                    { id: '2', categoryName: 'Web Development' },
+                    { id: '3', categoryName: 'App Development' }
+                ]
             },
             {
                 "fieldName": "Description",

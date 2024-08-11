@@ -13,9 +13,10 @@ export function FieldFormViewComponent({ dataSource, model, config }) {
         if (field.dataSource !== undefined)
         {
             return (<select key={field.field + '-' + id} id={field.field + '-' + id + '24216'} name={field.field}>
-                {field.dataSource.map(dataItem => (
-                    <option value={dataItem.optionValue}>{dataItem.optionText}</option>
-                ))}
+                {(field.populateDataSource !== undefined) ? field.populateDataSource(field) : null}
+                {/*{field.dataSource.map(dataItem => (*/}
+                {/*    <option value={dataItem.optionValue}>{dataItem.optionText}</option>*/}
+                {/*))}*/}
             </select>);
         }
         else {
