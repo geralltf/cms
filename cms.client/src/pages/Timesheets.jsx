@@ -30,11 +30,21 @@ export function FieldFormViewComponentTimesheets({ dataSource }) {
                     request.send(null);
 
                     if (request.status === 200) {
-                        var jsonResp = JSON.parse(request.responseText);
+                        if (request.responseType == "json" || request.responseType == "") {
+                            if (!request.responseText.startsWith("<!DOCTYPE ")) {
+                                var jsonResp = JSON.parse(request.responseText);
 
-                        return jsonResp.map(function (dataItem, index, array) {
-                            return <option value={dataItem.id}>{dataItem.categoryName}</option>;
-                        });
+                                return jsonResp.map(function (dataItem, index, array) {
+                                    return <option value={dataItem.id}>{dataItem.categoryName}</option>;
+                                });
+                            }
+                            else {
+                                return null;
+                            }
+                        }
+                        else {
+                            return null;
+                        }
                     }
                     return null;
                 }
@@ -64,19 +74,34 @@ export function FieldFormViewComponentTimesheets({ dataSource }) {
                 }
             },
             {
-                "fieldName": "Company ID",
+                "fieldName": "Company",
                 "field": "timesheetCompanyID",
                 "type": "string",
                 defaultValue: function () {
                     return 0;
-                }
-            },
-            {
-                "fieldName": "Company Name",
-                "field": "companyName",
-                "type": "string",
-                defaultValue: function () {
-                    return '';
+                },
+                populateDataSource: function (field) {
+                    const request = new XMLHttpRequest();
+                    request.open("GET", "/company", false); // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        if (request.responseType == "json" || request.responseType == "") {
+                            if (!request.responseText.startsWith("<!DOCTYPE ")){
+                                var jsonResp = JSON.parse(request.responseText);
+                                return jsonResp.map(function (dataItem, index, array) {
+                                    return <option value={dataItem.id}>{dataItem.companyName}</option>;
+                                });
+                            }
+                            else {
+                                return null;
+                            }
+                        }
+                        else {
+                            return null;
+                        }
+                    }
+                    return null;
                 }
             },
             {
